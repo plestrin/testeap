@@ -1,10 +1,9 @@
 #!/bin/bash
 
 if ./smap_support; then
-    echo -e '\x1b[31m[-]\x1b[0m CPUID indicates that SMAP is not supported'
-    exit 1
+	echo -e '\x1b[31m[-]\x1b[0m CPUID indicates that SMAP is not supported'
 else
-    echo -e '\x1b[32m[+]\x1b[0m CPUID indicates SMAP support'
+	echo -e '\x1b[32m[+]\x1b[0m CPUID indicates SMAP support'
 fi
 
 if [ $EUID -eq 0 ]; then
@@ -30,3 +29,9 @@ else
 fi
 
 echo 'To enable / disable SMAP add / remove "nosmap" to the kernel command line'
+
+if ./smep_support; then
+	echo -e '\x1b[31m[-]\x1b[0m CPUID indicates that SMEP is not supported'
+else
+	echo -e '\x1b[32m[+]\x1b[0m CPUID indicates SMEP support'
+fi

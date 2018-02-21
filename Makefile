@@ -1,6 +1,9 @@
+ASM_SRC := asm_64/
+
+
 all: smap_support smap_mod.ko smep_support
 
-%.o: %.asm
+%.o: $(ASM_SRC)%.asm
 	nasm -f elf64 $^ -o $@
 
 smap_support: smap_support.o cpu_feature.o
