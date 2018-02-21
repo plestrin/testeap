@@ -1,8 +1,10 @@
 all: smap_support smap_mod.ko
 
-smap_support: smap_support.asm
-	nasm -f elf64 $^ -o smap_support.o
-	gcc -s -o smap_support smap_support.o
+%.o: %.asm
+	nasm -f elf64 $^ -o $@
+
+smap_support: smap_support.o cpu_feature.o
+	ld -s -o $@ $^
 
 obj-m += smap.o
 smap-objs := smap_mod.o read_cr4_smap.o test_write.o
