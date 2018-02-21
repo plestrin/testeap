@@ -14,10 +14,15 @@ if [ $EUID -eq 0 ]; then
 	else
 		echo -e '\x1b[31m[-]\x1b[0m SMAP is not activated'
 	fi
-	if [ $(cat /dev/smap_test) -eq 1 ]; then
-		echo -e '\x1b[31m[-]\x1b[0m user space read: SUCCESS'
+
+	if [ -e '/dev/smap_test' ]; then
+		if [ $(cat /dev/smap_test) -eq 1 ]; then
+			echo -e '\x1b[31m[-]\x1b[0m user space write: SUCCESS'
+		else
+			echo -e '\x1b[32m[+]\x1b[0m user space write: FAILURE'
+		fi
 	else
-		echo -e '\x1b[32m[+]\x1b[0m user space read: FAILURE'
+		echo -e '\x1b[33m[~]\x1b[0m unable to test user space write (no TSX instructions)'
 	fi
 	rmmod smap.ko
 else

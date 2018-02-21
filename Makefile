@@ -7,7 +7,7 @@ smap_support: smap_support.o cpu_feature.o
 	ld -s -o $@ $^
 
 obj-m += smap.o
-smap-objs := smap_mod.o read_cr4_smap.o test_write.o
+smap-objs := smap_mod.o read_cr4_smap.o test_write.o cpu_feature.o
 
 smap_mod.ko: smap_mod.c
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

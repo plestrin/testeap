@@ -8,6 +8,8 @@ extern int read_cr4_smap(void);
 
 extern void test_write(void* addr);
 
+extern int has_tsx(void);
+
 static ssize_t cr4_smap_read(struct file* filp, char* u_buffer, size_t max_lg, loff_t* offset){
 	const char* result;
 	size_t 		length = 2;
@@ -82,6 +84,8 @@ static struct miscdevice smap_test_misc = {
 	.fops 	= &smap_test_fops
 };
 
+static int tsx;
+
 static int __init smap_mod_init(void){
 	int status;
 
@@ -89,8 +93,12 @@ static int __init smap_mod_init(void){
 		return status;
 	}
 
-	if ((status = misc_register(&smap_test_misc))){
-		misc_deregister(&cr4_smap_misc);
+	tsx = has_tsx();
+
+	if (tsx){
+		if ((status = misc_register(&smap_test_misc))){
+			misc_deregister(&cr4_smap_misc);
+		}
 	}
 
 	return status;
@@ -98,7 +106,10 @@ static int __init smap_mod_init(void){
 
 static void __exit smap_mod_fini(void){
 	misc_deregister(&cr4_smap_misc);
-	misc_deregister(&smap_test_misc);
+
+	if (tsx){
+		misc_deregister(&smap_test_misc);
+	}
 }
 
 module_init(smap_mod_init);
