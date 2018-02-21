@@ -17,9 +17,6 @@ testeap-objs := testeap_mod.o read_cr4.o test_write.o cpu_feature.o
 testeap.ko: testeap_mod.c
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
-# $(KBUILD_EXTMOD)/%.o: %.asm
-# 	nasm -f elf64 -o $@ $^
-
 clean:
 	@ rm -rf *.o
 	@ rm -rf smap_support
