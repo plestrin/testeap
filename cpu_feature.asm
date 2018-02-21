@@ -12,6 +12,18 @@ has_smap:
 	pop rbx
 	ret
 
+global has_smep
+has_smep
+	push rbx
+	mov rax, 7
+	xor rcx, rcx
+	cpuid
+	shr rbx, 7
+	and rbx, 0x1
+	mov rax, rbx
+	pop rbx
+	ret
+
 global has_tsx
 has_tsx:
 	push rbx

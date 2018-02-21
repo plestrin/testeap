@@ -7,3 +7,4 @@
 Module.symvers
 modules.order
 smap_support
+smep_support
