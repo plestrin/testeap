@@ -7,7 +7,7 @@ else
 fi
 
 if [ $EUID -eq 0 ]; then
-	insmod smap.ko
+	insmod testeap.ko
 	if [ $(cat /dev/cr4.smap) -eq 1 ]; then
 		echo -e '\x1b[32m[+]\x1b[0m SMAP is activated'
 	else
@@ -23,7 +23,7 @@ if [ $EUID -eq 0 ]; then
 	else
 		echo -e '\x1b[33m[~]\x1b[0m unable to test user space write (no TSX instructions)'
 	fi
-	rmmod smap.ko
+	rmmod testeap.ko
 else
 	echo -e '\x1b[33m[~]\x1b[0m script is not run by root, unable to load SMAP module'
 fi

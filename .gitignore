@@ -2,7 +2,7 @@
 *.ko
 *.o.cmd
 *.mod.c
-.smap.*
+*.ko.cmd
 .tmp_versions/
 Module.symvers
 modules.order
