@@ -41,3 +41,4 @@ else
 fi
 
 echo 'To enable / disable SMAP add / remove "nosmap" to the kernel command line'
+echo 'To enable / disable SMEP add / remove "nosmep" to the kernel command line'

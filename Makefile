@@ -1,9 +1,9 @@
-ASM_SRC := asm_64/
+ARCH := $(shell getconf LONG_BIT)
 
-all: smap_support smep_support testeap.ko 
+all: smap_support smep_support testeap.ko
 
-%.o: $(ASM_SRC)%.asm
-	nasm -f elf64 $^ -o $@
+%.o: asm_$(ARCH)/%.asm
+	nasm -f elf$(ARCH) $^ -o $@
 
 smap_support: smap_support.o cpu_feature.o
 	ld -s -o $@ $^
