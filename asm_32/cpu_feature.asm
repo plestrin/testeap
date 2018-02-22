@@ -13,7 +13,7 @@ has_smap:
 	ret
 
 global has_smep
-has_smep
+has_smep:
 	push ebx
 	mov eax, 7
 	xor ecx, ecx
